@@ -35,9 +35,7 @@ def receive():
             elif message.split()[0]  == "SendFile":
                 print("sending file")
 
-                fileThread = threading.Thread(target=fileTransfer, args=(message,  ))
-
-                fileThread.start()
+                fileTransfer(message)
 
             elif message[0] == '/':
                 fileRecieve(message)
@@ -62,7 +60,7 @@ def write():
         message = f"{Nickname}: {imp}"
         client.send(message.encode("ascii"))
 
-def fileTransfer(message):
+def fileTransfer(message): #/send dt-1333.jpg
     try:
         file = open(f"Send/{message.split()[1]}", "rb")
 
@@ -72,10 +70,11 @@ def fileTransfer(message):
             client.send(packet)
             packet = file.read(2048)
 
-
+        packet = 'done'.encode('ascii')
+        client.send(packet)
         file.close()
         print("file sent")
-        return
+
 
 
     except:

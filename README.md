@@ -39,4 +39,4 @@ File transfer
 * Extend command list to include different options on user interaction
 * Set up GUI
 * Implement file explorer pop up for file selection
-
+* Finalize file transfer and fix non exiting loops

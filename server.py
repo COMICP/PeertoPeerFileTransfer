@@ -55,7 +55,8 @@ def getFile(client, message):
 
         while packet:
             file.write(packet)
-            packet = client.recv(2048)
+            packet = client.recv(2048) #never exits loop even though packets stop coming
+            
 
         file.close()
         print("file recieved")
