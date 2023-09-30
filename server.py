@@ -3,11 +3,11 @@ import socket
 import random
 
 
-port = random.randint(50000, 60000)
+port = 50000#random.randint(50000, 60000)
 
 commandList = ( #keep list of commands here to send to user when help is needed. 
-    "/? = Command list \n", 
-    "/send ''FileName'' ''UserName'' = Send file to user \n", 
+    "/? = Command list ", 
+    "/send ''FileName'' ''UserName'' = Send file to user ", 
     "/dist ''FileName'' = Send file to everyone"
     )
 
@@ -35,27 +35,32 @@ def broadcast(message):
 
 
 def userCommand(client, message):
-    if message == "/?":
+    
+    if message.split()[1] == "/?":
         client.send(str(commandList).encode("ascii"))
 
-    elif message.split[0] == "/send":
+    elif message.split()[1] == "/send":
         getFile(client, message)
-        broadcast("Client uploaded file.".encode("ascii"))
+
+    else:
+        client.send("unknown command".encode("ascii"))
 
 
-#
 def getFile(client, message):
     
     try:
-        name = message.split()[1]
+        name = message.split()[2]
         file = open(f"serverstore/{name}", "wb")
 
-        client.send(f"SendFile {name}") 
+        client.send(f"SendFile {name}".encode("ascii")) 
         packet = client.recv(2048)
 
         while packet:
             file.write(packet)
+
             packet = client.recv(2048) #never exits loop even though packets stop coming
+
+
             
 
         file.close()
@@ -65,6 +70,7 @@ def getFile(client, message):
 
     except:
         client.send("ERROR".encode("ascii"))
+        print("error")
 
 
 
@@ -76,11 +82,11 @@ def handle(client):
             
             message = client.recv(1024)
 
-            if message.decode("ascii")[0] == "/":
+            if message.decode("ascii").split()[1][0] == "/":
                 userCommand(client, message.decode("ascii")) #passes message as string and client profile
-                
-            else:
-                broadcast(message)
+                message = message.decode("ascii")[0]+" used a command"
+            
+            broadcast(message)
 
                 
             
@@ -134,4 +140,5 @@ def broadcastFile(name):
     
     except:
         print("ERROR")
+
 recieve()

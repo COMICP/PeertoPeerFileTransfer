@@ -69,6 +69,7 @@ def fileTransfer(message): #/send dt-1333.jpg
         while packet:
             client.send(packet)
             packet = file.read(2048)
+            
 
         packet = 'done'.encode('ascii')
         client.send(packet)
