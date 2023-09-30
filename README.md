@@ -7,7 +7,7 @@ The program is broken into 2 separate files. The first is the server file. To us
 The purpose of this program is to create an easily upgradable base for Client/Server chat rooms. In order to add future functionality, the command structure is made to be modular.
 
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](https://youtu.be/MRH3OW_mJ2g)
 
 # Network Communication
 
