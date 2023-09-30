@@ -1,12 +1,11 @@
 # Overview
 
-This framework provides a simple demonstration using TCP over a local network. 
+This framework provides a simple Client/Server interaction using TCP over a local network. 
 
-{Provide a description the networking program that you wrote. Describe how to use your software.  If you did Client/Server, then you will need to describe how to start both.}
+The program is broken into 2 separate files. The first is the server file. To use the server file simply run the program. On boot the server will display the port and ip address. For this service, the server only acts as a middleman and has no commands for itself. The second file is the client. Launch this in the same way to start the program. After opening, the client asks for a name and a port number. After entering these, it will connect to the server. From here anything submitted to the console will be displayed to all clients connected to the server. The exception to this is commands. Commands for this program are denoted by beginning with “/” then the keywords. The only commands implemented currently are SendFile and Quit. /quit ends the program and terminates the connection. /SendFile “filename” will take the file of that name from the send folder and send it to all clients in the server. The file will be found in the received folder on completion. 
 
-{Describe your purpose for writing this software.}
+The purpose of this program is to create an easily upgradable base for Client/Server chat rooms. In order to add future functionality, the command structure is made to be modular.
 
-{Provide a link to your YouTube demonstration.  It should be a 4-5 minute demo of the software running (you will need to show two pieces of software running and communicating with each other) and a walkthrough of the code.}
 
 [Software Demo Video](http://youtube.link.goes.here)
 
@@ -40,5 +39,4 @@ File transfer
 * Extend command list to include different options on user interaction
 * Set up GUI
 * Implement file explorer pop up for file selection
-
 

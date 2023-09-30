@@ -60,6 +60,8 @@ def getFile(client, message):
         file.close()
         print("file recieved")
 
+        broadcastFile(name)
+
     except:
         client.send("ERROR".encode("ascii"))
 
@@ -110,10 +112,12 @@ def recieve():
 def broadcastFile(name):
     print(f"broadcasting file {name}")
     try:
-        file = open(f"serverstore/{name}", "rb")
+        
         for client in clients:
+            file = open(f"serverstore/{name}", "rb")
             packet = file.read(2048)
-
+            client.send(f"/ {name}".encode("ascii"))
+            
 
             while packet:
                 
@@ -123,7 +127,7 @@ def broadcastFile(name):
 
             
             print("file sent to " + client)
-
+        print("files sent")
         file.close()
         return
     

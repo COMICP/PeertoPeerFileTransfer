@@ -10,7 +10,21 @@ Nickname = input("Choose a nickname")
 client.connect(("127.0.0.1", connectPort ))
 
 def fileRecieve(message):
-    
+    try:
+        name = message.split()[1]
+        file = open(f"Received/{name}", "wb")
+
+        packet = client.recv(2048)
+
+        while packet:
+            file.write(packet)
+            packet = client.recv(2048)
+
+        file.close()
+        print("file recieved")
+
+    except:
+        client.send("ERROR".encode("ascii"))
 def receive():
     while True:
         try:
@@ -24,6 +38,9 @@ def receive():
                 fileThread = threading.Thread(target=fileTransfer, args=(message,  ))
 
                 fileThread.start()
+
+            elif message[0] == '/':
+                fileRecieve(message)
 
 
                 
